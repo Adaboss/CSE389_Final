@@ -1,6 +1,24 @@
+<?php
+session_start();
 
+// Directory for uploaded files
+$upload_dir = 'uploads/';
+if (!is_dir($upload_dir)) {
+    mkdir($upload_dir, 0755, true);
+}
 
+// Handle file upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+    $file = $_FILES['file'];
+    $target_file = $upload_dir . basename($file['name']);
 
+    if (move_uploaded_file($file['tmp_name'], $target_file)) {
+        $upload_message = "File uploaded successfully!";
+    } else {
+        $upload_message = "Failed to upload file.";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,25 +125,51 @@
   </div>
 
   <div class="dashboard">
-    <h1>
-        <?php
-            session_start();
-            echo "Welcome " . $_SESSION['username'] . "!";  
-        ?>
-    </h1>
+    <h1>Welcome, <?php echo $_SESSION['username'] ?? 'User'; ?>!</h1>
     <div class="button-container">
-      <button>Create New Note</button>
+      <button onclick="openFileUpload()">Upload New Note</button>
       <button>View All Notes</button>
       <button>Search Notes</button>
       <button>View Shared Notes</button>
     </div>
+
+    <!-- Display upload status -->
+    <?php if (isset($upload_message)) { ?>
+      <p><?php echo htmlspecialchars($upload_message); ?></p>
+    <?php } ?>
+
+    <!-- Recent Notes -->
     <div class="recent-notes">
       <h3>Recent Notes:</h3>
       <ul>
-        <li>Note Title 1 (Modified: Date)</li>
-        <li>Note Title 2 (Modified: Date)</li>
+        <?php
+          // List all files in the upload directory
+          $files = array_diff(scandir($upload_dir), ['.', '..']);
+          foreach ($files as $file) {
+              $file_url = htmlspecialchars($upload_dir . $file);
+	      echo "<li><a href='$file_url' download>" . htmlspecialchars($file) . "</a></li>";
+
+          }
+        ?>
       </ul>
     </div>
   </div>
+
+  <!-- Hidden file upload form -->
+  <form id="fileUploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
+    <input type="file" name="file" id="fileInput" onchange="uploadFile()">
+  </form>
+
+  <script>
+    // Open the file dialog
+    function openFileUpload() {
+      document.getElementById('fileInput').click();
+    }
+
+    // Submit the form when a file is selected
+    function uploadFile() {
+      document.getElementById('fileUploadForm').submit();
+    }
+  </script>
 </body>
 </html>
