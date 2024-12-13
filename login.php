@@ -1,69 +1,89 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In - NoteShare</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <!-- design the login page here any animation images.for this page style write the css 
-     in the login.php file inside the style body tag -->
-<style>
+    <title>SuNoteShared - Login</title>
+    <style>
         body {
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background-color: #f5f5f5;
         }
+
         .container {
-            text-align: center;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             width: 100%;
             max-width: 400px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #333;
+
+        .container h1 {
+            font-size: 28px;
+            color: #6a1b9a;
+            margin-bottom: 20px;
         }
-        input {
-            margin-top: 10px;
-            padding: 10px;
+
+        .container form {
             width: 100%;
-            max-width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
+
+        .container input {
+            margin-bottom: 15px;
+            padding: 10px;
             font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .container button {
+            padding: 10px;
+            font-size: 16px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            background-color: #6a1b9a;
+            color: white;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        .container button:hover {
+            background-color: #501c73;
+        }
+
+        .container a {
+            margin-top: 10px;
+            color: #6a1b9a;
+            text-decoration: none;
+        }
+
+        .container a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
+<body>
     <div class="container">
-        <div class="logo">Welcome to NoteShare</div>
+        <h1>SuNoteShared</h1>
         <form action="login_action.php" method="POST">
-            <input type="text" name="username" placeholder="Username" required><br>
-            <input type="password" name="password" placeholder="Password" required><br>
-            <button type="submit">Log In</button>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
         </form>
-        <p>Don't have an account? <a href="signup.php">Sign up</a></p>
+        <p>Don't have an account? <a href="signup.php">Sign up here.</a></p>
     </div>
 </body>
 </html>
-

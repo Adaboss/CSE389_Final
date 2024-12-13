@@ -1,55 +1,57 @@
+
 <?php
-// signup_action.php
+require 'db_connection.php';
 
-// Step 1: Get form data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password']; // Plain password (no hashing)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    // Step 2: Database connection
-    $servername = "localhost";
-    $username = "root"; // default XAMPP username
-    $db_password = ""; // default XAMPP password
-    $dbname = "user_management"; // your database name
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if (empty($username) || empty($email) || empty($password)) {
+// Debug: Entering debug section for line 11
+error_log("Debugging Line 11: " . __FILE__ . " at " . __LINE__);
+        die("Please fill in all fields.");
+error_log("Exiting debug section for line 11");
     }
 
-    // Step 3: Prepare and bind the SQL statement
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+// Debug: Entering debug section for line 15
+error_log("Debugging Line 15: " . __FILE__ . " at " . __LINE__);
+        die("Invalid email address.");
+error_log("Exiting debug section for line 15");
+    }
+
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
     $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-    
-    // Prepare the SQL query
     if ($stmt = $conn->prepare($sql)) {
-        // Bind parameters to the query
-        $stmt->bind_param("sss", $name, $email, $password);
-        
-        // Execute the query
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
+
         if ($stmt->execute()) {
-            // Success: User is registered
-            echo "<p>User registered successfully!</p>";
-            echo "<p><a href='signup.php'>Go back to the signup page</a></p>";
+// Debug: Entering debug section for line 25
+error_log("Debugging Line 25: " . __FILE__ . " at " . __LINE__);
+            echo "Sign up successful!<br>";
+error_log("Exiting debug section for line 25");
+// Debug: Entering debug section for line 26
+error_log("Debugging Line 26: " . __FILE__ . " at " . __LINE__);
+            echo '<a href="login.php">Go to login</a>';
+error_log("Exiting debug section for line 26");
         } else {
-            // If query execution fails, show the error
-            echo "<p>Error executing the query: " . $stmt->error . "</p>";
+// Debug: Entering debug section for line 28
+error_log("Debugging Line 28: " . __FILE__ . " at " . __LINE__);
+            echo "Sign up failed, error: " . $stmt->error;
+error_log("Exiting debug section for line 28");
         }
-        
-        // Close the statement
+
         $stmt->close();
     } else {
-        // If preparation fails, show the error
-        echo "<p>Error preparing the query: " . $conn->error . "</p>";
+// Debug: Entering debug section for line 33
+error_log("Debugging Line 33: " . __FILE__ . " at " . __LINE__);
+        echo "Failed to prepare statement, error: " . $conn->error;
+error_log("Exiting debug section for line 33");
     }
 
-    // Close the connection
     $conn->close();
-} else {
-    // If the form is not submitted properly
-    echo "<p>Invalid request.</p>";
 }
 ?>
+    

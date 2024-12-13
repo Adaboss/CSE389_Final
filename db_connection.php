@@ -1,15 +1,17 @@
-<?php
-// Database connection settings
-$servername = "localhost"; // Usually "localhost" on XAMPP
-$username = "root";        // Default username for XAMPP
-$password = "";            // Default password for XAMPP (leave empty)
-$dbname = "user_management";       // Replace this with your actual database name
 
-// Create connection
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "user_management";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Debug: Entering debug section for line 11
+error_log("Debugging Line 11: " . __FILE__ . " at " . __LINE__);
+    die("Database connection failed: " . $conn->connect_error);
+error_log("Exiting debug section for line 11");
 }
 ?>
+    
