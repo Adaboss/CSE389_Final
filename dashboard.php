@@ -132,9 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
       <button>Search Notes</button>
       <button>View Shared Notes</button>
     </div>
-
     <!-- Display upload status -->
+
     <?php if (isset($upload_message)) { ?>
+// check formatting on this, could be why there's bugs, and for some reason this comment can't be above the php script without appearing on the page
       <p><?php echo htmlspecialchars($upload_message); ?></p>
     <?php } ?>
 
@@ -147,6 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
           $files = array_diff(scandir($upload_dir), ['.', '..']);
           foreach ($files as $file) {
               $file_url = htmlspecialchars($upload_dir . $file);
+	  //Should print to dashboard, else problem with array_diff of $files
+	  //Also adds download link button
 	      echo "<li><a href='$file_url' download>" . htmlspecialchars($file) . "</a></li>";
 
           }
@@ -156,14 +159,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
   </div>
 
   <!-- Hidden file upload form -->
+
   <form id="fileUploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
     <input type="file" name="file" id="fileInput" onchange="uploadFile()">
   </form>
 
   <script>
+
     // Open the file dialog
     function openFileUpload() {
       document.getElementById('fileInput').click();
+
     }
 
     // Submit the form when a file is selected

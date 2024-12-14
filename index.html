@@ -61,10 +61,11 @@
 
     <script>
         function performSearch() {
+	    //Query should be right now, forgot .value
             const query = document.getElementById("searchBar").value;
             if(query) {
                 alert("Searching for: " + query);
-                // Placeholder for search logic - you'd typically send the query to a backend
+                // Placeholder for search, just for testing
             } else {
                 alert("Please enter a search term.");
             }

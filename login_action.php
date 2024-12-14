@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $user['password'])) {
             session_start();
             $_SESSION['username'] = $user['name'];
-            header('Location: homepage.php');
+            header('Location: dashboard.php');
             exit;
         } else {
 // Debug: Entering debug section for line 26
