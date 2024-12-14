@@ -6,7 +6,7 @@
     <title>Sign Up - NoteShare</title>
 </head>
 <body>
-<header style='text-align: center; font-size: 24px; font-weight: bold; margin: 20px 0;'>SUNoteShared</header>
+<header style='text-align: center; font-size: 24px; font-weight: bold; margin: 20px 0;'>SUNoteShare</header>
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 <div>
     <h1>Sign Up</h1>
