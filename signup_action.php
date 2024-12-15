@@ -1,7 +1,9 @@
 
 <?php
+//connectthe server to database
 require 'db_connection.php';
 
+//Getting the data signup form sending the data into database such as users name,email and password
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
@@ -20,7 +22,7 @@ error_log("Debugging Line 15: " . __FILE__ . " at " . __LINE__);
         die("Invalid email address.");
 error_log("Exiting debug section for line 15");
     }
-
+    //Hashing the password for security of the user using BCRYPT algorithm 
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";

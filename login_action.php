@@ -4,12 +4,16 @@ ini_set('display_errors', 1);
 ?>
 
 <?php
+//connection of the server to database 
 require 'db_connection.php';
+
+//Getting the data of user from html login form and from the database
+//Getting the stored data of user from database and verify the login credentials
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-
+    
     $stmt = $conn->prepare("SELECT * FROM users WHERE name = ? LIMIT 1");
     $stmt->bind_param("s", $username);
     $stmt->execute();
