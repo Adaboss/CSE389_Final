@@ -3,7 +3,7 @@
 //connectthe server to database
 require 'db_connection.php';
 
-//sending the data into database such as users name,email and password
+//Getting the data signup form sending the data into database such as users name,email and password
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
